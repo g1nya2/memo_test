@@ -1,0 +1,38 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Memo App</title>
+</head>
+<body>
+    <h1>Simple Memo App</h1>
+    <textarea id="memoInput" rows="4" cols="50"></textarea><br>
+    <button onclick="createMemo()">Create Memo</button>
+    <button onclick="getMemo()">Get Memo</button>
+    <div id="memoDisplay"></div>
+
+    <script>
+        async function createMemo() {
+            const memoInput = document.getElementById("memoInput").value;
+            const response = await fetch('<YOUR_FUNCTION_URL>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ memo: memoInput })
+            });
+            const data = await response.text();
+            alert(data);
+        }
+
+        async function getMemo() {
+            const response = await fetch('<YOUR_FUNCTION_URL>');
+            const data = await response.json();
+            document.getElementById("memoDisplay").innerText = data.memo;
+        }
+    </script>
+</body>
+</html>
